@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>canvasJS2</title>
+        <style>
+            #chartContainer {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        
+         <div id="chartContainer"></div>
+        
+         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script>
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light1",
+                
+                title:{
+		            text: "Cantidad Alumnos por Mes",
+		            fontColor: "black",
+	            },
+  
+                axisY: {
+                    includeZero: false,
+                    title: "Alumnos",
+                    labelFontColor: "black",
+                    titleFontColor: "black",
+                    interval: 5
+                },
+  
+                axisX: {
+                    title: "Mes",
+                    labelAngle: -30,
+                    labelFontColor: "black",
+                    titleFontColor: "black"
+                },
+	
+                data: [{
+                	type: "line",
+                	indexLabel: "{y}",
+                	indexLabelFontColor: "gray",
+                    indexLabelFontSize: 16,
+                	indexLabelPlacement: "outside",
+                	
+                    dataPoints: [
+                            { label: "Enero", y: 80, indexLabel: "\u2691 Menor" },
+                            { label: "Febrero", y: 87 },
+                            { label: "Marzo", y: 90 },
+                            { label: "Abril", y: 83 },
+                            { label: "Mayo", y: 88 },
+                			{ label: "Junio", y: 100 },
+                			{ label: "Julio", y: 110, indexLabel: "\u2605 Mayor" },
+                            { label: "Agosto", y: 98 },
+                            { label: "Septiembre", y: 93 },
+                            { label: "Octubre", y: 95 },
+                            { label: "Noviembre", y: 99 },
+                			{ label: "Diciembre", y: 103 },
+                		]
+                	}]
+                });
+
+            chart.render();
+        </script>
+    </body>
+</html>

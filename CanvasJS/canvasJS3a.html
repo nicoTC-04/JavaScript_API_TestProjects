@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>canvasJS3a</title>
+        <style>
+            #chartContainer {
+                width: 50%;
+                height: 400px;
+            }
+        </style>
+    </head>
+    <body>
+        
+         <div id="chartContainer"></div>
+        
+         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script>
+            var prim = parseInt(prompt("¿Cuantos alumnos de primaria hay?", "0"));
+            var sec = parseInt(prompt("¿Cuantos alumnos de secundaria hay?", "0"));
+            var prep = parseInt(prompt("¿Cuantos alumnos de preparatoria hay?", "0"));
+            var uni = parseInt(prompt("¿Cuantos alumnos de universidad hay?", "0"));
+            var grades = [prim, sec, prep, uni];
+            var mayor;
+            var may = grades[0];
+            var nombres = ["{y}","{y}","{y}","{y}"];
+            
+            for (i=0; i<grades.length; i++){
+                if(grades[i]>=may){
+                    mayor = i;
+                    may = grades[i];
+                }
+            };
+            
+            nombres[mayor] += " (Mayor)";
+            
+        
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light1",
+                
+                title:{
+		            text: "Cantidad Alumnos por Grado",
+		            fontColor: "black",
+	            },
+  
+                axisY: {
+                    includeZero: true,
+                    title: "Cantidad de Alumnos",
+                    labelFontColor: "black",
+                    titleFontColor: "black",
+                    interval: 5
+                },
+  
+                axisX: {
+                    title: "Grado",
+                    labelAngle: -30,
+                    labelFontColor: "black",
+                    titleFontColor: "black"
+                },
+	
+                data: [{
+                	type: "column",
+                	indexLabel: "{y}",
+                	indexLabelFontColor: "gray",
+                    indexLabelFontSize: 16,
+                	indexLabelPlacement: "outside",
+                	
+                    dataPoints: [
+                            { label: "Primaria", y: prim, indexLabel: nombres[0] },
+                            { label: "Secundaria", y: sec, indexLabel: nombres[1] },
+                            { label: "Preparatoria", y: prep, indexLabel: nombres[2] },
+                            { label: "Universidad", y: uni, indexLabel: nombres[3] },
+                		]
+                	}]
+                });
+
+            chart.render();
+        </script>
+    </body>
+</html>

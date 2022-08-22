@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <title>canvasJS6</title>
+        <style>
+            #chartContainer {
+                width: 100%;
+                height: 95%;
+            }
+        </style>
+    </head>
+    <body>
+         <div id="chartContainer"></div>
+        
+         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script>
+        
+        var mins = [];
+        var maxs = [];
+        var dates = [];
+        var date;
+        var spliceDate = "";
+        
+            fetch("https://api.openweathermap.org/data/2.5/onecall?lat=25.61758372383531&lon=-100.25066490122542&exclude=hourly,minutely&units=metric&appid=f59c4b324ce475b4209960affce5899a")
+            .then(response=>response.json())
+            .then(data => {
+                for(i=0; i<8; i++){
+                    mins.push(data['daily'][i]['temp']['min']);
+                    maxs.push(data['daily'][i]['temp']['max']);
+                    date = new Date(data['daily'][i]['dt'] *1000).toGMTString();
+                    spliceDate = date.substring(5,16)
+                    dates.push(spliceDate);
+                }
+                
+                    var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    exportEnabled: true,
+                    theme: "light1",
+                    
+                    title:{
+    		            text: "Pronostico 8 dias",
+    		            fontColor: "black",
+    	            },
+      
+                    axisY: {
+                        includeZero: false,
+                        title: "Temperatura",
+                        labelFontColor: "black",
+                        titleFontColor: "black",
+                        interval: 2,
+                        suffix: "°C"
+                    },
+      
+                    axisX: {
+                        title: "Dia",
+                        labelAngle: -30,
+                        labelFontColor: "black",
+                        titleFontColor: "black"
+                    },
+    	
+                    data: [{
+                    	type: "line",
+                    	name: "minimas",
+                    	showInLegend: true,
+                    	indexLabel: "{y}°C",
+                    	indexLabelMaxWidth: 100,
+                    	indexLabelPlacement: "outside",
+                    	indexLabelFontColor: "gray",
+                        indexLabelFontSize: 16,
+                    	indexLabelPlacement: "outside",
+                    	
+                        dataPoints: [
+                                { label: dates[0], y: Math.round(mins[0]) },
+                                { label: dates[1], y: Math.round(mins[1]) },
+                                { label: dates[2], y: Math.round(mins[2]) },
+                                { label: dates[3], y: Math.round(mins[3]) },
+                                { label: dates[4], y: Math.round(mins[4]) },
+                    			{ label: dates[5], y: Math.round(mins[5]) },
+                    			{ label: dates[6], y: Math.round(mins[6]) },
+                    			{ label: dates[7], y: Math.round(mins[7]) },
+                    		]
+                    	},
+                    	{
+                    	type: "line",
+                    	name: "maximas",
+                    	showInLegend: true,
+                    	indexLabel: "{y}°C",
+                    	indexLabelMaxWidth: 100,
+                    	indexLabelPlacement: "outside",
+                    	indexLabelFontColor: "gray",
+                        indexLabelFontSize: 16,
+                    	indexLabelPlacement: "outside",
+                    	
+                        dataPoints: [
+                                { label: dates[0], y: Math.round(maxs[0]) },
+                                { label: dates[1], y: Math.round(maxs[1]) },
+                                { label: dates[2], y: Math.round(maxs[2]) },
+                                { label: dates[3], y: Math.round(maxs[3]) },
+                                { label: dates[4], y: Math.round(maxs[4]) },
+                    			{ label: dates[5], y: Math.round(maxs[5]) },
+                    			{ label: dates[6], y: Math.round(maxs[6]) },
+                    			{ label: dates[7], y: Math.round(maxs[7]) },
+                    		]
+                    	}
+                    	]
+                    });
+                
+                //encontrar punto mayor
+                dataPoints = chart.options.data[1].dataPoints;
+            	mayor = 0;
+            	may = 0;
+            	for(i=0; i<dataPoints.length; i++){
+            	    if (dataPoints[i].y>mayor){
+            	        mayor = dataPoints[i].y;
+            	        may = i;
+            	    };
+            	};
+            	
+            	dataPoints[may].indexLabel = "\u2191 Mayor -({y}°C)-";
+            	
+            	//encontrar punto menor
+            	dataPoints = chart.options.data[0].dataPoints;
+            	menor = dataPoints[0].y;
+            	men = 0;
+            	for(i=0; i<dataPoints.length; i++){
+            	    if (dataPoints[i].y<menor){
+            	        menor = dataPoints[i].y;
+            	        men = i;
+            	    };
+            	};
+            	
+            	dataPoints[men].indexLabel = "\u2193 Menor -({y}°C)-";
+            	
+            	chart.render();
+            });
+            
+        </script>
+    </body>
+</html>

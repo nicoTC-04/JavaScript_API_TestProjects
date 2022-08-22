@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>canvasJS1</title>
+        <style>
+            #chartContainer {
+                width: 100%;
+                height: 400px;
+            }
+        </style>
+    </head>
+    <body>
+        
+         <div id="chartContainer"></div>
+        
+         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script>
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light1",
+                
+                title:{
+		            text: "Cantidad Alumnos por Grupo",
+		            fontColor: "black",
+	            },
+  
+                axisY: {
+                    includeZero: true,
+                    title: "Cantidad de Alumnos",
+                    labelFontColor: "black",
+                    titleFontColor: "black",
+                    interval: 2
+                },
+  
+                axisX: {
+                    title: "Grupos",
+                    labelAngle: -30,
+                    labelFontColor: "black",
+                    titleFontColor: "black"
+                },
+	
+                data: [{
+                	type: "bar",
+                	indexLabel: "{y}",
+                	indexLabelFontColor: "gray",
+                    indexLabelFontSize: 16,
+                	indexLabelPlacement: "outside",
+                	
+                    dataPoints: [
+                            { label: "Lunes", y: 22 },
+                            { label: "Martes", y: 15 },
+                            { label: "Miércoles", y: 25 },
+                            { label: "Jueves", y: 18 },
+                            { label: "Viernes", y: 5 },
+                			{ label: "Sábado", y: 18 },
+                		]
+                	}]
+                });
+
+            chart.render();
+        </script>
+    </body>
+</html>

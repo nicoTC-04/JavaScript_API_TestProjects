@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>canvasJS2b</title>
+        <style>
+            #chartContainer {
+                width: 100%;
+                height: 95%;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <button type="button" onClick="add()">Agregar Punto</button>
+        
+         <div id="chartContainer"></div>
+        
+         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script>
+            var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octube", "Noviembre", "Diciembre"];
+            var apuntador = 0;
+            var nuevo = 0;
+            var mayorAnt = 6;
+            var mayor = 0;
+            var may = 0;
+            
+            function add(){
+                dataPoints = chart.options.data[0].dataPoints;
+            	nuevo = 120-Math.floor(Math.random()*40);
+            	dataPoints.push({ label:meses[apuntador], y: nuevo, indexLabel: ""});
+            	mayor = 0;
+            	may = 0;
+            	for(i=0; i<dataPoints.length; i++){
+            	    if (dataPoints[i].y>mayor){
+            	        mayor = dataPoints[i].y;
+            	        may = i;
+            	    };
+            	};
+            	
+            	if(mayorAnt !== may){
+            	    dataPoints[mayorAnt].indexLabel = "";
+            	    dataPoints[may].indexLabel = "\u2605 Mayor";
+            	    mayorAnt = may;
+            	}
+            	
+            	if(apuntador<11){
+            	    apuntador++;
+            	}else{
+            	    apuntador=0;
+            	}
+            	chart.render();
+            }
+        
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light1",
+                
+                title:{
+		            text: "Cantidad Alumnos por Mes",
+		            fontColor: "black",
+	            },
+  
+                axisY: {
+                    includeZero: false,
+                    title: "Alumnos",
+                    labelFontColor: "black",
+                    titleFontColor: "black",
+                    interval: 5
+                },
+  
+                axisX: {
+                    title: "Mes",
+                    labelAngle: -30,
+                    labelFontColor: "black",
+                    titleFontColor: "black"
+                },
+	
+                data: [{
+                	type: "line",
+                	indexLabel: "{y}",
+                	indexLabelFontColor: "gray",
+                    indexLabelFontSize: 16,
+                	indexLabelPlacement: "outside",
+                	
+                    dataPoints: [
+                            { label: "Enero", y: 80, indexLabel: "\u2691 Menor" },
+                            { label: "Febrero", y: 87, indexLabel: ""},
+                            { label: "Marzo", y: 90, indexLabel: "" },
+                            { label: "Abril", y: 83, indexLabel: "" },
+                            { label: "Mayo", y: 88, indexLabel: "" },
+                			{ label: "Junio", y: 100, indexLabel: "" },
+                			{ label: "Julio", y: 110, indexLabel: "\u2605 Mayor" },
+                            { label: "Agosto", y: 98, indexLabel: "" },
+                            { label: "Septiembre", y: 93, indexLabel: "" },
+                            { label: "Octubre", y: 95, indexLabel: "" },
+                            { label: "Noviembre", y: 99, indexLabel: "" },
+                			{ label: "Diciembre", y: 103, indexLabel: "" },
+                		]
+                	}]
+                });
+
+            chart.render();
+        </script>
+    </body>
+</html>

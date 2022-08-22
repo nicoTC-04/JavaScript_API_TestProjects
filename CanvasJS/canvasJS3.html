@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>canvasJS3</title>
+        <style>
+            #chartContainer {
+                width: 50%;
+                height: 400px;
+            }
+        </style>
+    </head>
+    <body>
+        
+         <div id="chartContainer"></div>
+        
+         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <script>
+            let prim = parseInt(prompt("¿Cuantos alumnos de primaria hay?", "0"));
+            let sec = parseInt(prompt("¿Cuantos alumnos de secundaria hay?", "0"));
+            let prep = parseInt(prompt("¿Cuantos alumnos de preparatoria hay?", "0"));
+            let uni = parseInt(prompt("¿Cuantos alumnos de universidad hay?", "0"));
+        
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                exportEnabled: true,
+                theme: "light1",
+                
+                title:{
+		            text: "Cantidad Alumnos por Grado",
+		            fontColor: "black",
+	            },
+  
+                axisY: {
+                    includeZero: true,
+                    title: "Cantidad de Alumnos",
+                    labelFontColor: "black",
+                    titleFontColor: "black",
+                    interval: 5
+                },
+  
+                axisX: {
+                    title: "Grado",
+                    labelAngle: -30,
+                    labelFontColor: "black",
+                    titleFontColor: "black"
+                },
+	
+                data: [{
+                	type: "column",
+                	indexLabel: "{y}",
+                	indexLabelFontColor: "gray",
+                    indexLabelFontSize: 16,
+                	indexLabelPlacement: "outside",
+                	
+                    dataPoints: [
+                            { label: "Primaria", y: prim },
+                            { label: "Secundaria", y: sec },
+                            { label: "Preparatoria", y: prep },
+                            { label: "Universidad", y: uni },
+                		]
+                	}]
+                });
+
+            chart.render();
+        </script>
+    </body>
+</html>
