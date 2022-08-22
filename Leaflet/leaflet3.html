@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Leaflet3</title>
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+         crossorigin=""/>
+        <style>
+            #mapid { height: 100%; }
+        </style>
+    </head>
+    <body>
+        
+         <div id="mapid"></div>
+        
+         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+        <script>
+            var mymap = L.map('mapid').setView([25.614886, -100.226709], 10);
+            
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1Ijoibmljb3RyZXZpbm8iLCJhIjoiY2tvcTBkbnY3MGVleTJ1b3NidG5qaXl1MSJ9.EseKXfcdlC3ip0uAF_Toag'
+            }).addTo(mymap);
+            
+            var polygon = L.polygon([
+              [25.65685897905814, -100.24738651543771],
+              [25.616234277737565, -100.25659244788444],
+              [25.56835132612711, -100.22045250443765],
+              [25.57980973389156, -100.1785671294452],
+              [25.637640413199257, -100.21007826289049]
+            ]).addTo(mymap);
+            
+            polygon.bindPopup("Hola, este es el cerro de la silla")
+        </script>
+    </body>
+</html>
